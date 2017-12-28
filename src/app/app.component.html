@@ -1,16 +1,21 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar class="toolbar-custom">
-  <mat-toolbar-row>
-   <span>Sin complicaciones</span>
- </mat-toolbar-row>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-container" (backdropClick)="sidenav.close()">
+<mat-sidenav-container class="sidenav-container mat-typography" (backdropClick)="sidenav.close()">
   <mat-sidenav #sidenav class="sidenav-custom">
     <ul>
-      <li>Configuración</li>
+      <li>
+        <a routerLink="/add" routerLinkActive="active">Nuevo envío</a>
+      </li>
+      <li>
+        <a routerLink="/list" routerLinkActive="active">Lista de envíos</a>
+      </li>
     </ul>
   </mat-sidenav>
   <mat-sidenav-content>
-    <i (click)="sidenav.toggle()" class="material-icons">menu</i>
+    <mat-toolbar class="toolbar-custom">
+      <mat-toolbar-row>
+        <i (click)="sidenav.toggle()" class="fa fa-bars" aria-hidden="true"></i>
+        <h1>{{title}}</h1>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
