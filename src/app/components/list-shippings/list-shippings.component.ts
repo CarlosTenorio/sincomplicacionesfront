@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import * as Models from 'app/models/app.models';
+import { ApiService } from 'app/services/api.service';
+
 @Component({
   selector: 'app-list-shippings',
   templateUrl: './list-shippings.component.html',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListShippingsComponent implements OnInit {
 
-  constructor() { }
+  shippings: Models.IShipping[] = [];
+  shippingTypes = Models.ShippingType;
+
+  constructor(
+    private apiService: ApiService
+  ) { }
 
   ngOnInit() {
+    this.apiService.getShippings()
+      .subscribe((shippings: Models.IShipping[]) => {
+        this.shippings = shippings;
+      });
   }
 
 }

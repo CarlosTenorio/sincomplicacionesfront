@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import '../styles/variables.scss';
 
 .sidenav-container {
   position: absolute;
@@ -12,6 +12,6 @@
   background-color: $brand-primary;
 }
 
-.toolbar-custom{
+.toolbar-custom {
   background-color: $brand-primary;
 }

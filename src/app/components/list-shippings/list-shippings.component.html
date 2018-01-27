@@ -1,3 +1,28 @@
-<p>
-  list-shippings works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Lista de envíos</h1>
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th><i class="fa fa-handshake-o" aria-hidden="true"></i>&nbsp;Tipo</th>
+            <th><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Fecha</th>
+            <th><i class="fa fa-eur" aria-hidden="true"></i>&nbsp;Costes de envío</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let shipping of shippings"
+              class="click-element"
+              (click)="navigateToDetail(shipping.id)">
+            <th>
+              <i class="fa" [ngClass]="{'fa-paper-plane': shipping.shipping_type == shippingTypes.Sale,
+               'fa-credit-card-alt': shipping.shipping_type == shippingTypes.Purchase}"></i>
+            </th>
+            <th>{{ shipping.date }}</th>
+            <th>{{ shipping.shipping_costs }} <i class="fa fa-eur" aria-hidden="true"></i></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

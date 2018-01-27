@@ -11,14 +11,23 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiService } from './services/api.service';
-import { AddShippingComponent, ListShippingsComponent } from './components';
+import {
+  ApiService,
+  AuthenticationService,
+  CookiesService
+} from './services';
+import {
+  AddShippingComponent,
+  ListShippingsComponent,
+  LoginComponent
+} from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddShippingComponent,
-    ListShippingsComponent
+    ListShippingsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +41,9 @@ import { AddShippingComponent, ListShippingsComponent } from './components';
     HttpModule
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthenticationService,
+    CookiesService
   ],
   bootstrap: [
     AppComponent

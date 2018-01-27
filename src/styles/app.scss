@@ -1,0 +1,7 @@
+@import 'variables.scss';
+
+.click-element {
+  &:hover {
+    cursor: pointer;
+  }
+}
