@@ -5,11 +5,11 @@
       <form #addCardForm="ngForm" (ngSubmit)="save(addCardForm)" novalidate [ngClass]="{'ng-submitted':submitted}">
         <div class="form-group col-md-4">
           <label for="">Fecha</label>
-          <input type="date" value="{{ currentDate }}" class="form-control">
+          <input type="date" value="{{ currentDate }}" class="form-control" required>
         </div>
         <div class="form-group col-md-4">
           <label for="">Tipo de envío</label>
-          <select class="form-control" [(ngModel)]="shipping_type" name="shipping_type">
+          <select class="form-control" [(ngModel)]="shipping_type" name="shipping_type" required>
             <option *ngFor="let type of shippingTypes" [value]="type.value">
               {{ type.label }}
             </option>
@@ -17,7 +17,7 @@
         </div>
         <div class="form-group col-md-4">
           <label for="">Costes de envío</label>
-          <input type="number" [(ngModel)]="shipping_costs" name="shipping" class="form-control">
+          <input type="number" [(ngModel)]="shipping_costs" name="shipping" class="form-control" required>
         </div>
         <h4>Cartas</h4>
         <div class="col-xs-12">
@@ -32,41 +32,77 @@
         <div *ngFor="let card of listCards; let i = index" class="panel panel-default col-xs-6">
           <div class="panel-heading">
             <h4>Carta: {{ i + 1 }}</h4>
-            Cantidad: <input type="number" [(ngModel)]="card.quantity" name="quantity">
+            <p>Cantidad: </p>
+            <input type="number" [(ngModel)]="card.quantity" name="quantity" required>
+            <validation-message
+              [form]="addCardForm"
+              controlName="quantity"
+              [submitted]="submitted"
+              [messages]="{'required':'La cantidad es requerida'}">
+            </validation-message>
           </div>
           <!-- Card -->
           <div class="panel-body">
             <div class="form-group col-md-12">
               <label for="">Título</label>
-              <input type="text" [(ngModel)]="card.title" name="title" class="form-control">
+              <input type="text" [(ngModel)]="card.title" name="title_{{i}}"
+                class="form-control" required>
+              <validation-message
+                [form]="addCardForm"
+                controlName="title_{{i}}"
+                [submitted]="submitted"
+                [messages]="{'required':'El título es requerido'}">
+              </validation-message>
             </div>
             <div class="form-group col-md-12">
               <label for="">Descripción</label>
-              <input type="text" [(ngModel)]="card.description" name="description" class="form-control">
+              <input type="text" [(ngModel)]="card.description" name="description_{{i}}"
+                class="form-control">
             </div>
             <div class="form-group col-md-6">
               <label for="">Precio</label>
-              <input type="number" [(ngModel)]="card.price" name="price" class="form-control">
+              <input type="number" step="0.01" [(ngModel)]="card.price" name="price_{{i}}"
+                class="form-control" required>
+              <validation-message
+                [form]="addCardForm"
+                controlName="price_{{i}}"
+                [submitted]="submitted"
+                [messages]="{'required':'El precio es requerido'}">
+              </validation-message>
             </div>
             <div class="form-group col-md-6">
               <label for="">Expansión</label>
-              <select class="form-control" [(ngModel)]="card.expansion" name="expansion">
+              <select class="form-control" [(ngModel)]="card.expansion"
+                name="expansion_{{i}}" required>
                 <option *ngFor="let expansion of expansions" value="{{expansion.id}}" >
                   {{ expansion.title }}
                 </option>
               </select>
+              <validation-message
+                [form]="addCardForm"
+                controlName="expansion_{{i}}"
+                [submitted]="submitted"
+                [messages]="{'required':'La expansión es requerida'}">
+              </validation-message>
             </div>
             <div class="form-group col-md-6">
               <label for="">País</label>
-              <select class="form-control" [(ngModel)]="card.country" name="country">
+              <select class="form-control" [(ngModel)]="card.country"
+                name="country_{{i}}" required>
                 <option *ngFor="let country of countries" value="{{country.id}}">
                   {{ country.name }}
                 </option>
               </select>
+              <validation-message
+                [form]="addCardForm"
+                controlName="country_{{i}}"
+                [submitted]="submitted"
+                [messages]="{'required':'El país es requerido'}">
+              </validation-message>
             </div>
             <div class="form-group col-xs-12">
               <label for="">Imagen</label>
-              <input type="file" accept="image/*">
+              <input type="file" name="image_{{i}}" accept="image/*">
             </div>
           </div>
         </div>

@@ -19,15 +19,19 @@ import {
 import {
   AddShippingComponent,
   ListShippingsComponent,
-  LoginComponent
+  LoginComponent,
+  ValidationMessageComponent
 } from './components';
+import { MapValuesPipe } from './pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddShippingComponent,
     ListShippingsComponent,
-    LoginComponent
+    LoginComponent,
+    ValidationMessageComponent,
+    MapValuesPipe
   ],
   imports: [
     BrowserModule,

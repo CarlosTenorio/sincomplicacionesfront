@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import * as Models from 'app/models/app.models';
 import { ApiService } from 'app/services/api.service';
@@ -18,10 +19,11 @@ import 'rxjs/add/operator/finally';
 export class AddShippingComponent implements OnInit {
 
   currentDate: string;
-  saving: boolean = false;
+  shipping_date: string;
   shipping_type: number;
   shipping_costs: number;
-  shipping_date: string;
+  saving: boolean = false;
+  submitted: boolean = false;
 
   shippingTypes: any[];
 
@@ -35,8 +37,14 @@ export class AddShippingComponent implements OnInit {
 
   ngOnInit() {
     this.shippingTypes = [
-      { 'value': Models.ShippingType.Purchase, 'label': Models.ShippingType[Models.ShippingType.Purchase] },
-      { 'value': Models.ShippingType.Sale, 'label': Models.ShippingType[Models.ShippingType.Sale] }
+      {
+        'value': Models.ShippingType.Purchase,
+        'label': Models.ShippingType[Models.ShippingType.Purchase]
+      },
+      {
+        'value': Models.ShippingType.Sale,
+        'label': Models.ShippingType[Models.ShippingType.Sale]
+      }
     ]
     this.currentDate = moment().format('YYYY-MM-DD');
     this.setDefaultValues(true);
@@ -62,7 +70,7 @@ export class AddShippingComponent implements OnInit {
       country: _.first(this.countries).id,
       shipping: null,
       quantity: 1,
-      price: 0
+      price: 1.01
     });
   }
 
@@ -70,9 +78,10 @@ export class AddShippingComponent implements OnInit {
    * Reset all inputs to default valures
    */
   setDefaultValues(init: boolean = false) {
+    this.submitted = false;
     this.shipping_type = _.first(this.shippingTypes).value;
     this.shipping_date = this.currentDate;
-    this.shipping_costs = 0;
+    this.shipping_costs = 1.01;
     this.listCards = [];
     if (!init)
       this.addCard();
@@ -81,25 +90,22 @@ export class AddShippingComponent implements OnInit {
   /**
    * Save the shipping on DB
    */
-  save({ valid, value }) {
-    if (valid && !this.saving) {
+  save(addCardForm: NgForm) {
+    this.submitted = true;
+    if (addCardForm.valid && !this.saving) {
       this.saving = true;
-
       let shipping = <Models.IShipping>{
         date: this.currentDate,
         shipping_type: this.shipping_type,
         shipping_costs: this.shipping_costs,
         shipping_card: this.listCards
       };
-      console.log(shipping)
       this.apiService.saveShipping(shipping)
         .finally(() => {
           this.saving = false;
           this.setDefaultValues();
         })
         .subscribe(() => {
-          console.log("save successful")
-          // this.messageService.sendMessage('save_success', MessageType.success);
         });
     }
   }

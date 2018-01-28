@@ -5,3 +5,9 @@
     cursor: pointer;
   }
 }
+
+form.ng-submitted {
+  input.ng-invalid {
+    border-color: $brand-error !important;
+  }
+}

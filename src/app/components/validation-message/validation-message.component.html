@@ -1,0 +1,8 @@
+<div class="validation-error" *ngIf="!form.controls[controlName]?.valid &&
+  (form.controls[controlName]?.touched || submitted)">
+   <ng-container *ngFor="let message of messages | mapValues">
+    <div *ngIf="form.controls[controlName]?.hasError(message.key)">
+      {{ message.value }}
+    </div>
+   </ng-container>
+ </div>
