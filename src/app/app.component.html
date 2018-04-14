@@ -2,10 +2,10 @@
   <mat-sidenav #sidenav class="sidenav-custom">
     <ul>
       <li>
-        <a routerLink="/add" routerLinkActive="active">Nuevo envío</a>
+        <a routerLink="/shippings/add" routerLinkActive="active">Nuevo envío</a>
       </li>
       <li>
-        <a routerLink="/list" routerLinkActive="active">Lista de envíos</a>
+        <a routerLink="/shippings" routerLinkActive="active">Lista de envíos</a>
       </li>
     </ul>
   </mat-sidenav>
@@ -13,7 +13,7 @@
     <mat-toolbar class="toolbar-custom">
       <mat-toolbar-row>
         <i (click)="sidenav.toggle()" class="fa fa-bars" aria-hidden="true"></i>
-        <h1>{{title}}</h1>
+        <h1>{{ title }}</h1>
       </mat-toolbar-row>
     </mat-toolbar>
     <router-outlet></router-outlet>

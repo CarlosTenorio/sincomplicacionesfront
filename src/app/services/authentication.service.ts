@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams, Response } from '@angular/http'
 import { environment } from 'environments/environment';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 import * as Models from 'app/models/app.models';
 import { CookiesService } from 'app/services/cookies.service';
@@ -21,7 +21,7 @@ export class AuthenticationService {
   /**
    * Login successful if there's a token in the response
    */
-  login(username: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<void> {
     return this.http.post(environment.apiRoute + 'api-token-auth/',
       { "username": username, "password": password })
       .map((response: Response) => {
@@ -33,6 +33,10 @@ export class AuthenticationService {
         } else {
           return false;
         }
+      })
+      .catch((error: Response) => {
+        if (error.status === 400)
+          return Observable.throw('error_login');
       });
   }
 

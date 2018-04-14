@@ -11,27 +11,18 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CustomCommonModule } from './modules/custom-common/custom-common.module';
 import {
   ApiService,
   AuthenticationService,
   CookiesService
 } from './services';
-import {
-  AddShippingComponent,
-  ListShippingsComponent,
-  LoginComponent,
-  ValidationMessageComponent
-} from './components';
-import { MapValuesPipe } from './pipes';
+import * as Components from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddShippingComponent,
-    ListShippingsComponent,
-    LoginComponent,
-    ValidationMessageComponent,
-    MapValuesPipe
+    Components.LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +33,7 @@ import { MapValuesPipe } from './pipes';
     MatToolbarModule,
     MatGridListModule,
     AppRoutingModule,
+    CustomCommonModule,
     HttpModule
   ],
   providers: [

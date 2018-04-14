@@ -48,12 +48,20 @@ export class ApiService {
       .map((response: Response) => response.json());
   }
 
-
   /**
    * Get all shippings
    */
   getShippings(): Observable<Models.IShipping[]> {
     return this.http.get(environment.apiRoute + 'shippings/',
+      { headers: this.createAuthorizationHeader() })
+      .map((response: Response) => response.json());
+  }
+
+  /**
+   * Get shipping detail
+   */
+  getShipping(id_shipping: number): Observable<Models.IShipping> {
+    return this.http.get(environment.apiRoute + 'shippings/detail/'+id_shipping,
       { headers: this.createAuthorizationHeader() })
       .map((response: Response) => response.json());
   }

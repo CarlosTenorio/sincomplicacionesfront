@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import * as Models from 'app/models/app.models';
 import { ApiService } from 'app/services/api.service';
@@ -14,7 +15,8 @@ export class ListShippingsComponent implements OnInit {
   shippingTypes = Models.ShippingType;
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -24,4 +26,10 @@ export class ListShippingsComponent implements OnInit {
       });
   }
 
+  /**
+   * Redirect to shipping Detail by ID
+   */
+  navigateToDetail(shipping_id: number) {
+    this.router.navigate(['/shippings/detail', shipping_id]);
+  }
 }
