@@ -1,28 +1,42 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h1>Lista de envíos</h1>
-      <table class="table table-hover table-condensed">
-        <thead>
+      <h1>Shipping list</h1>
+      <p-table #dt [value]="shippings" [columns]="cols" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="50" placeholder="Global Filter"
+                  (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
           <tr>
-            <th><i class="fa fa-handshake-o" aria-hidden="true"></i>&nbsp;Tipo</th>
-            <th><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Fecha</th>
-            <th><i class="fa fa-eur" aria-hidden="true"></i>&nbsp;Costes de envío</th>
+             <th *ngFor="let col of columns">
+                 <i class="{{col.icon}}"></i>&nbsp;{{col.header}}
+             </th>
           </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let shipping of shippings"
-              class="click-element"
-              (click)="navigateToDetail(shipping.id)">
-            <th>
-              <i class="fa" [ngClass]="{'fa-paper-plane': shipping.shipping_type == shippingTypes.Sale,
-               'fa-credit-card-alt': shipping.shipping_type == shippingTypes.Purchase}"></i>
+          <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+               <p-dropdown *ngSwitchCase="'type'" [options]="types" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+               <input *ngSwitchCase="'date'" pInputText type="text"
+               (input)="dt.filter($event.target.value, col.field, 'contains')">
+               <input *ngSwitchCase="'costs'" pInputText type="text"
+               (input)="dt.filter($event.target.value, col.field, 'equals')">
             </th>
-            <th>{{ shipping.date }}</th>
-            <th>{{ shipping.shipping_costs }} <i class="fa fa-eur" aria-hidden="true"></i></th>
           </tr>
-        </tbody>
-      </table>
+          </ng-template>
+          <ng-template pTemplate="body" let-shipping>
+              <tr [pSelectableRow]="shipping" class="click-element" (click)="navigateToDetail(shipping.id)">
+                  <td>
+                    <i class="fa" [ngClass]="{'fa-paper-plane': shipping.type == shippingTypes.Sale,
+                     'fa-credit-card-alt': shipping.type == shippingTypes.Purchase}"></i>
+                  </td>
+                  <td>{{ shipping.date }}</td>
+                  <td>{{ shipping.costs }}</td>
+              </tr>
+          </ng-template>
+      </p-table>
     </div>
   </div>
 </div>

@@ -4,6 +4,9 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+
 import { CustomCommonModule } from 'app/modules/custom-common/custom-common.module';
 
 import * as Components from './components';
@@ -21,7 +24,9 @@ const childRoutes: Route[] = [
     HttpModule,
     RouterModule.forChild(childRoutes),
     FormsModule,
-    CustomCommonModule
+    CustomCommonModule,
+    TableModule,
+    DropdownModule
   ],
   declarations: [
     Components.ListShippingsComponent,

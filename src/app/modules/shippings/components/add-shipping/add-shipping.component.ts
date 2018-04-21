@@ -96,9 +96,9 @@ export class AddShippingComponent implements OnInit {
       this.saving = true;
       let shipping = <Models.IShipping>{
         date: this.currentDate,
-        shipping_type: this.shipping_type,
-        shipping_costs: this.shipping_costs,
-        shipping_card: this.listCards
+        type: this.shipping_type,
+        costs: this.shipping_costs,
+        cards: this.listCards
       };
       this.apiService.saveShipping(shipping)
         .finally(() => {

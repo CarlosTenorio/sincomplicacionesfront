@@ -18,9 +18,9 @@ export enum ShippingType {
 
 export interface IShipping {
   date: string;
-  shipping_type: ShippingType;
-  shipping_costs: number;
-  shipping_card: ICard[];
+  type: ShippingType;
+  costs: number;
+  cards: ICard[];
 }
 
 export interface ICard {
