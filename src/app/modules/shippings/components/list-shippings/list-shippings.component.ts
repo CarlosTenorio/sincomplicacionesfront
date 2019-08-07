@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import * as Models from 'app/models/app.models';
 import { ApiService } from 'app/services/api.service';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { forEach } from 'lodash';
-import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-list-shippings',
@@ -17,7 +16,6 @@ export class ListShippingsComponent implements OnInit, OnDestroy {
 
   shippings: Models.IShipping[] = [];
   cols: any[];
-  types: SelectItem[];
   shippingTypes = Models.ShippingType;
 
   private subscriptions: Subscription[] = [];
@@ -34,11 +32,11 @@ export class ListShippingsComponent implements OnInit, OnDestroy {
       { field: 'costs', header: 'Costs', icon: 'fa fa-eur' }
     ];
 
-    this.types = [
-      { label: 'All', value: null },
-      { label: 'Purchase', value: 0 },
-      { label: 'Sale', value: 1 }
-    ];
+    // this.types = [
+    //   { label: 'All', value: null },
+    //   { label: 'Purchase', value: 0 },
+    //   { label: 'Sale', value: 1 }
+    // ];
 
     this.subscriptions.push(this.apiService.getShippings()
       .subscribe((shippings: Models.IShipping[]) => {
