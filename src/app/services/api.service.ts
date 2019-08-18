@@ -11,9 +11,6 @@ import { AuthenticationService } from 'app/services/authentication.service';
 @Injectable()
 export class ApiService {
 
-  private username: string = 'root';
-  private password: string = 'admin1234';
-
   constructor(
     private http: Http,
     private authentication: AuthenticationService,

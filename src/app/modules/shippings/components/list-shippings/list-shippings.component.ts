@@ -46,12 +46,16 @@ export class ListShippingsComponent implements OnInit, OnDestroy {
       }));
   }
 
+  /**
+   * Destroy all the subscriptions.
+   */
   ngOnDestroy() {
     forEach(this.subscriptions, (subscription) => { subscription.unsubscribe(); })
   }
 
   /**
-   * Redirect to shipping Detail by ID
+   * Redirect to order Detail by ID
+   * @param shipping_id Order Id
    */
   navigateToDetail(shipping_id: number) {
     this.router.navigate(['/shippings/detail', shipping_id]);
