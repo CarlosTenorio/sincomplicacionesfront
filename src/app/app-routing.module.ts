@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'shippings',
-    loadChildren: 'app/modules/shippings/shippings.module#ShippingsModule',
+    loadChildren: () => import('app/modules/shippings/shippings.module').then(m => m.ShippingsModule),
     data: { title: 'shippings' }
   }
 ];

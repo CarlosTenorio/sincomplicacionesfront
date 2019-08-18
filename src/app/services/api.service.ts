@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams, Response } from '@angular/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from 'environments/environment';
 
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import * as Models from 'app/models/app.models';
+import { IExpansion, ICountry, IShipping, ICard } from 'app/models/app.models';
 import { AuthenticationService } from 'app/services/authentication.service';
 
 @Injectable()
 export class ApiService {
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private authentication: AuthenticationService,
   ) { }
 
@@ -20,8 +19,8 @@ export class ApiService {
    * Return the Authorization headers with Token for authenticated the user
    * on the API
    */
-  createAuthorizationHeader() {
-    var headers = new Headers({
+  private _createAuthorizationHeader() {
+    const headers = new HttpHeaders({
       'Authorization': 'Token ' + this.authentication.token
     });
     return headers;
@@ -30,56 +29,49 @@ export class ApiService {
   /**
    * Get all expansions
    */
-  getExpansions(): Observable<Models.IExpansion[]> {
-    return this.http.get(environment.apiRoute + 'expansions/',
-      { headers: this.createAuthorizationHeader() })
-      .map((response: Response) => response.json());
+  public getExpansions(): Observable<IExpansion[]> {
+    return this.http.get<IExpansion[]>(environment.apiRoute + 'expansions/',
+      { headers: this._createAuthorizationHeader() });
   }
 
   /**
    * Get all countries
    */
-  getCountries(): Observable<Models.ICountry[]> {
-    return this.http.get(environment.apiRoute + 'countries/',
-      { headers: this.createAuthorizationHeader() })
-      .map((response: Response) => response.json());
+  public getCountries(): Observable<ICountry[]> {
+    return this.http.get<ICountry[]>(environment.apiRoute + 'countries/',
+      { headers: this._createAuthorizationHeader() });
   }
 
   /**
    * Get all shippings
    */
-  getShippings(): Observable<Models.IShipping[]> {
-    return this.http.get(environment.apiRoute + 'shippings/',
-      { headers: this.createAuthorizationHeader() })
-      .map((response: Response) => response.json());
+  public getShippings(): Observable<IShipping[]> {
+    return this.http.get<IShipping[]>(environment.apiRoute + 'shippings/',
+      { headers: this._createAuthorizationHeader() });
   }
 
   /**
    * Get shipping detail
    */
-  getShipping(id_shipping: number): Observable<Models.IShipping> {
-    return this.http.get(environment.apiRoute + 'shippings/detail/'+id_shipping,
-      { headers: this.createAuthorizationHeader() })
-      .map((response: Response) => response.json());
+  public getShipping(id_shipping: number): Observable<IShipping> {
+    return this.http.get<IShipping>(environment.apiRoute + 'shippings/detail/'+id_shipping,
+      { headers: this._createAuthorizationHeader() });
   }
 
   /**
    * Save shipping
    */
-  saveShipping(shipping: Models.IShipping): Observable<any> {
+  public saveShipping(shipping: IShipping): Observable<any> {
     return this.http.post(environment.apiRoute + 'shippings/', shipping,
-      { headers: this.createAuthorizationHeader() })
-      .map((response: Response) => response.json());
+      { headers: this._createAuthorizationHeader() });
   }
 
   /**
    * Save Cards
    */
-  saveCards(cards: Models.ICard[]): Observable<any> {
+  public saveCards(cards: ICard[]): Observable<any> {
     return this.http.post(environment.apiRoute + 'cards/', cards,
-      { headers: this.createAuthorizationHeader() })
-      .map((response: Response) => response.json());
+      { headers: this._createAuthorizationHeader() });
   }
-
 
 }

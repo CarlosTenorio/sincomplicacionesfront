@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
-
-import { TableModule } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
 
 import { CustomCommonModule } from 'app/modules/custom-common/custom-common.module';
 
@@ -21,12 +18,10 @@ const childRoutes: Route[] = [
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forChild(childRoutes),
     FormsModule,
-    CustomCommonModule,
-    TableModule,
-    DropdownModule
+    CustomCommonModule
   ],
   declarations: [
     Components.ListShippingsComponent,

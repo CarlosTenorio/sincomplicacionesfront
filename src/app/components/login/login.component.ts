@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import * as Models from 'app/models/app.models';
 import { AuthenticationService } from 'app/services';
 
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/catch';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +27,7 @@ export class LoginComponent implements OnInit {
     if (loginForm.valid && !this.loading) {
       this.loading = true;
       this.authentication.login(this.model.username, this.model.password)
-        .finally(() => { this.loading = false })
+        .pipe(finalize(() => { this.loading = false }))
         .subscribe((result) => {
           if (result)
             this.router.navigate(['shippings']);

@@ -7,9 +7,7 @@ import { ApiService } from 'app/services/api.service';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/finally';
+import { finalize, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-shipping',
@@ -48,10 +46,10 @@ export class AddShippingComponent implements OnInit {
     ]
     this.currentDate = moment().format('YYYY-MM-DD');
     this.setDefaultValues(true);
-    this.apiService.getCountries().switchMap((countries: Models.ICountry[]) => {
+    this.apiService.getCountries().pipe(switchMap((countries: Models.ICountry[]) => {
       this.countries = countries;
       return this.apiService.getExpansions();
-    })
+    }))
       .subscribe((expansions: Models.IExpansion[]) => {
         this.expansions = expansions;
         this.addCard();
@@ -101,10 +99,10 @@ export class AddShippingComponent implements OnInit {
         cards: this.listCards
       };
       this.apiService.saveShipping(shipping)
-        .finally(() => {
+        .pipe(finalize(() => {
           this.saving = false;
           this.setDefaultValues();
-        })
+        }))
         .subscribe(() => {
         });
     }
