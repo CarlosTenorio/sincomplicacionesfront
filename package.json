@@ -29,7 +29,7 @@
     "lodash": "4.17.4",
     "moment": "2.20.1",
     "ngx-bootstrap": "^2.0.0-rc.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "popper.js": "1.12.9",
     "rxjs": "^6.5.2",
     "tslib": "^1.10.0",
